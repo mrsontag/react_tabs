@@ -1,24 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import Tabs from './components/tabs';
+import Content from "./components/content";
 import './App.css';
 
 function App() {
+  const morestuffcallback = () => {
+    alert("ran the more stuff callback!");
+  }
+  const lotsofstuffcallback = () => {
+    alert("ran the lots of stuff callback!");
+  }
+  const tabscontent = [ 
+    ["My","My content goes here"],
+    [ "Stuff", "Stuff content"],
+    [ "More Stuff", "More Stuff content",morestuffcallback],
+    [ "Lots of Stuff", "Lost of Stuff content",lotsofstuffcallback],
+    [ "Stuff", "Stuff content"],
+  ]
+  const [content, setContent] = useState(tabscontent[0][1]);
+  const [activetab, setActiveTab] = useState(0);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Tabs tabs={ tabscontent } setContent={setContent} activetab={activetab} setActiveTab={setActiveTab}/>
+      <Content content={content}/>
     </div>
   );
 }
